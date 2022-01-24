@@ -1,0 +1,148 @@
+---
+sidebar_position: 3
+---
+
+
+
+
+
+在上述已创建好的适配器模板中，需要添加新的服务层级结构。
+<center>
+
+![](/img/tutorial/image-20220111141157677.png)
+
+</center>
+
+
+<center>
+图 42 添加服务提供方目录节点
+</center>
+
+鼠标点击Root Service Provider Catalog {{id}}栏，软件右侧界面将会跳转出根节点设置页面。在该页面中，需要对Catalog标题，Catalog instanceIdDefined ，描述（选填），选择Catalog relativeUri 等几项内容进行填写。
+
+本操作手册对以上几项内容的示例演示填写内容如下表所示：
+
+表 4 填写内容示例
+
+<div class="center">
+
+|        Catalog标题        |       Root Service Provider Catalog {{id}}        | 
+| :-----------------------: | :-----------------------------------------------: |
+| Catalog instanceIdDefined |                     singleton                     |
+|           描述            | (id: {{id}}; kind: Root Service Provider Catalog) |
+|  选择Catalog relativeUri  |                      未勾选                       |
+
+</div>
+
+在填写好以上条目内容后，点击页面中的更新按钮，对所填写的内容进行保存。
+<center>
+
+![](/img/tutorial/image-20220111141237629.png)
+
+</center>
+<center>
+图 43 点击更新按钮
+</center>
+
+接下来，根据用户实际需求，需要添加下一级服务提供方目录节点或服务提供方节点。本案例中，根据Excel 适配器的实际需求，在下一层级中，添加服务提供方目录节点。
+
+鼠标右键点击服务提供方根目录节点，即可出现添加节点菜单。
+
+![](/img/tutorial/image-20220111141253291.png)
+
+​	图 44 添加节点菜单
+
+鼠标左键单击“添加Provider”按钮，软件将会跳转出节点配置页面，在该页面中，进行相关的属性添加配置。
+
+![](/img/tutorial/image-20220111141306242.png)
+
+​	图 45 添加下一层节点
+
+- 在该层节点中，需要进行进一步的配置，点击DefaultServiceProvider{{id}}树状节点目录，为其添加相关配置项。
+
+- 在Provider节点目录表单中填写入相应的配置内容。
+
+本操作手册对以上几项内容的示例演示填写内容如下表所示：
+
+​																									表 5 示例演示
+
+|       Provider标题       |       Service Provider Catalog {{id}}        |
+| :----------------------: | :------------------------------------------: |
+|       Catalog Name       |                   SPCexcel                   |
+| CataloginstanceIdDefined |                    excel                     |
+|           描述           | (id: {{id}}; kind: Service Provider Catalog) |
+|    CatalogrelativeUri    |                     不选                     |
+
+服务提供方节点表单填写完毕后，如下如所示。
+
+![](/img/tutorial/image-20220111141347591.png)
+
+​	图 46 表单填写
+
+- 在Provider节点表单填写完毕后，点击更新按钮，进行配置保存。
+
+- 保存后鼠标右键Service Provider Catalog {{id}}节点树状目录，为其添加一个Service节点。
+
+![](/img/tutorial/image-20220111141427444.png)
+
+​	图 47 树状节点目录
+
+- 点击DefaultService{{id}}树状节点目录，为其添加相关配置项。
+
+![](/img/tutorial/image-20220111141451535.png)
+
+​	图 48 配置表单项
+
+- 在DefaultService{{id}}节点目录表单中填写入相应的配置内容。
+
+填写示例：
+
+​																													表 6 填写示例
+
+|       Service标题        | Service Provider 'excel service provider {{id}} |
+| :----------------------: | :---------------------------------------------: |
+|       ServiceName        |                     SPexcel                     |
+| ServiceinstanceIdDefined |                      不填                       |
+|     ServiceuriPrefix     |                 providers/excel                 |
+|           描述           |      (id: {{id}}; kind: Service Provider)       |
+|    CatalogrelativeUri    |                      不选                       |
+
+![](/img/tutorial/image-20220111141552770.png)
+
+图 49 表单填写
+
+- 在Service节点表单填写完毕后，点击更新按钮，进行配置保存。
+
+- 保存后鼠标右键Service Provider 'excel service provider {{id}}'节点树状目录，为其添加一个resource节点。
+
+![](/img/tutorial/image-20220111141632579.png)
+
+​	图 50 树状节点目录
+
+点击Default Service Resource树状节点目录，为其添加相关配置项。
+
+![](/img/tutorial/image-20220111141646669.png)
+
+图 51 配置表单项
+
+- 在Default Service Resource节点目录表单中填写入相应的配置内容。
+
+填写示例：
+
+​																													表 7 填写示例
+
+|    资源名称     |  serExcelContent  |
+| :-------------: | :---------------: |
+| Service资源设置 | 只选中relativeUri |
+
+![](/img/tutorial/image-20220111141734320.png)
+
+图 52 表单填写
+
+在Service节点表单填写完毕后，点击更新按钮，进行配置保存。当点击更新按钮后，将会弹出如图所示报错提示框，出现此提示框是因为未给服务进行资源的连接。
+
+![](/img/tutorial/image-20220111141750603.png)
+
+图 53 报错提示
+
+下一节将对资源的配置进行说明。

@@ -1,0 +1,31 @@
+---
+sidebar_position: 1
+---
+
+
+## a）服务发现
+
+如图1所示，通过以下步骤检索OSLC兼容工具提供的服务信息：
+
+-  ServiceProviderCatalog，从名称开始的ServiceProviders目录，是查询的起点。通过查询ServiceProviderCatalog资源并分析它来检索ServiceProvider的URI。
+
+
+- ServiceProvider是对所提供服务（或部分服务）的描述。OSLC提供的服务的详细信息作为queryCapability和creationFactory包含在服务资源内联中。ResourceShape或ResourceType可以作为所提供资源的属性包括在内，并且可以用于理解所提供资源的结构。
+
+
+
+![Docusaurus logo ](/img/tutorial/image-20220110104551034.png ) 
+
+<center>
+图 1 服务发现
+</center>
+
+## b）标准化资源表述(RDF/XML)<br/>
+RDF是一种元数据语言，专为Web应用程序使用关联数据而设计,是用于在Web中表示信息的框架。一般来说，它指定了以特定XML格式保存特殊对象实例的方法。在RDF中，资源使用URI标识，RDF语法非常简单，由表达式组成三元组，第一个术语是主语，第二个谓词，第三个是对象，即“主语+谓语+对象”。这种关系的一个简单示例是“Someone（Subject）具有名称（谓词），其值为John（Object）”。此外，由于在Internet环境中使用它的上下文，RDF资源的结构并不严格，这意味着每个人都可以对任何资源进行任何更改。这就是OSLC必须提供特殊资源ResourceShape来描述特定资源的确切结构的原因。这种称为三元组的基本结构发展为形成图形或数据模型。RDF使用链接连接到与Web类似的资源，并且可以通过导航其他的资源链接来增长，从而可以在网络中拥有唯一的资源标识。
+XML是用于操作OSLC中数据的主要技术。XML在术语“语义Web”中被分割，这种现象使机器能够处理数据。 XML代表可扩展标记语言，是在软件世界中表示数据的通用标准，可以与任何语言一起使用。它支持数据可移植性，可以帮助在网络中传输数据或将数据存储到数据库中。由于它在IT中广泛使用，因此处理和管理XML的工具正在显着发展。
+XML由元素，属性和一些其他细节（可自由定义的标签）构成。由于它拥有无限的标记集，因此XML被认为非常灵活且可完全自定义 XML可以很容易地被其他使用可用库的程序使用，并且可以转换成其他形式的表示（XML转换语言）。XML用作将RDF模型表示为机器可读文件的语法，并使其能够在其他应用程序之间进行通信。可以使用XML命名空间机制唯一地标识属性类型，这是一种清楚地标识语义的方法及其特定的属性类型用法。<br/>
+
+## c）基于HTTP协议的C.R.U.D<br/>
+OSLC规范定义的服务是基于REST风格。OSLC将生命周期工具中的数据进行资源化，并由提供者使用RESTful（Representational state architecture）提供给Web服务，用户通过HTTP协议对这些资源进行访问。REST，实际上是Representational State Transfer的缩写，翻译成中文即为"表现层状态转化"，
+OSLC数据整合框架是基于HTTP协议的，而HTTP协议本身是一种无状态协议，即没有资源实体，只提供一个位置用以定位，所有的资源实体储存在服务器端。因此，如果客户端想要操作服务器，比如查看、新增、删除、修改数据资源，必须通过和服务器建立连接，发送请求信息到服务器，服务器接收信息后，再通过服务器内置的转化规则发生“状态转化”（State Transfer）。由于这种转化建立在表现层之上，所以叫做“表现层状态转化”。
+OSLC前后端交互与RESTful Web服务一样，可以通过执行HTTP命令GET，POST，PUT和DELETE来获取，创建，更新和删除资源。在OSLC中，creationFactory通过执行POST命令提供用于创建新资源的URI，queryCapability通过执行GET命令提供URI以获取资源信息列表。在列出的资源中，可以获取单个资源的URL，通过执行GET，PUT和DELETE命令可以查询，更新或删除资源。

@@ -1,0 +1,215 @@
+---
+sidebar_position: 1
+---
+
+- OSLC规范中主要包含如下图所示服务层级结构：
+
+![](/img/tutorial/image-20220111143142751.png)
+
+图 68 OSLC层架结构
+
+在OSLC规范中个层级目录结构主要包括
+
+Service provider Catalog :服务提供方目录
+
+Service Provider：服务提供方
+
+Service:服务
+
+- 以Modelica适配器为例，经Datalinks表单配置所生成的适配器模板会首先生成一个json文件，Datalinks软件会通过该json文件生成适配器框架。Json文件如下所示：
+
+`{`
+  `"catalog": {`
+    `"catalogs": [`
+      `{`
+        `"providers": [`
+          `{`
+            `"instanceIdDefined": null,`
+            `"name": "SPModelica",`
+            `"relativeUri": false,`
+            `"services": [`
+              `{`
+                `"disableCreation": false,`
+                `"disableQuery": false,`
+                `"name": "ModelContent",`
+                `"relativeUri": true,`
+                `"resource": "ModelContent"`
+              `}`
+            `],`
+            `"title": "serModelContent {{id}}",`
+            `"uriPrefix": "providers/modelica",`
+            `"description": "(id: {{id}}; kind: Service Provider)"`
+          `}`
+        `],`
+        `"description": "(id: {{id}}; kind: Service Provider Catalog)",`
+        `"instanceIdDefined": "modelicaLib",`
+        `"name": "SPCModelica",`
+        `"relativeUri": false,`
+        `"title": "Service Provider Catalog Modelica Model Library {{id}}"`
+      `},`
+      `{`
+        `"providers": [`
+          `{`
+            `"instanceIdDefined": null,`
+            `"name": "DemoSPModelica",`
+            `"relativeUri": false,`
+            `"services": [`
+              `{`
+                `"disableCreation": false,`
+                `"disableQuery": false,`
+                `"name": "DemoModelContent",`
+                `"relativeUri": true,`
+                `"resource": "ModelContent"`
+              `}`
+            `],`
+            `"title": "serModelContent {{id}}",`
+            `"uriPrefix": "providers/modelicademo",`
+            `"description": "(id: {{id}}; kind: Service Provider)"`
+          `}`
+        `],`
+        `"description": "(id: {{id}}; kind: Service Provider Catalog)",`
+        `"instanceIdDefined": "modelicaLibdemo",`
+        `"name": "DemoSPCModelica",`
+        `"relativeUri": false,`
+        `"title": "Service Provider Catalog Modelica Model Library {{id}}"`
+      `}`
+    `],`
+    `"description": "(id: {{id}}; kind: Root Service Provider Catalog)",`
+    `"instanceIdDefined": "singleton",`
+    `"name": "root",`
+    `"relativeUri": false,`
+    `"title": "Root Service Provider Catalog {{id}}"`
+  `},`
+  `"domain": "http://oslcadapter.com/ns/modelica#",`
+  `"domainAlias": "OSLC-Adapter-Modelica",`
+  `"name": "OSLC-Adapter-Modelica",`
+  `"nsBase": "com.fc.oslcModelica.generated",`
+  `"port": "8030",`
+  `"publisher": {`
+    `"id": "com.fc",`
+    `"title": "OSLC-Adapter-Modelica"`
+  `},`
+  `"resources": [`
+    `{`
+      `"name": "ModelContent",`
+      `"properties": [`
+        `{`
+          `"description": "description for model content",`
+          `"name": "relationship",`
+          `"occurrence": "ExactlyOne",`
+          `"propertyDefinition": "relationship",`
+          `"readonly": false,`
+          `"title": "Relationship",`
+          `"type": "REF##XMLLiteral"`
+        `},`
+        `{`
+          `"description": "description for model content",`
+          `"name": "source",`
+          `"occurrence": "ExactlyOne",`
+          `"propertyDefinition": "source",`
+          `"readonly": false,`
+          `"title": "Source",`
+          `"type": "REF##XMLLiteral"`
+        `},`
+        `{`
+          `"description": "description for model content",`
+          `"name": "target",`
+          `"occurrence": "ExactlyOne",`
+          `"propertyDefinition": "target",`
+          `"readonly": false,`
+          `"title": "Target",`
+          `"type": "REF##XMLLiteral"`
+        `}`
+      `],`
+      `"title": "Model Content Resource Shape"`
+    `}`
+  `]`
+`}`
+
+- Datalinks通过表单的配置将首先生成一个json文件，该json文件与Datalinks中每配置的一层节点信息具有一一对应的关系。各层级对比如下展示：
+
+![](/img/tutorial/image-20220111143352590.png)
+
+![](/img/tutorial/image-20220111143400950.png)
+
+​	图 69 适配器框架层
+
+在Datalinks中，在生成一个新项目时，首先填写的“项目设置”表单，对应json文件的最外层，在适配器代码框架中，主要为了配置其项目名称，包结构，项目端口号等内容。
+
+![](/img/tutorial/image-20220111143422134.png)
+
+图 70 根目录节点
+
+在Datalinks中添加的根目录节点，对应json文件中第二层的内容，在适配器代码模板中对应生成的rootcontroller类。
+
+![](/img/tutorial/image-20220111143446683.png)
+
+​	图 71 服务提供方目录节点
+
+在Datalinks中添加服务提供方目录节点，对应json文件中第三层的内容，在适配器代码模板框架中对应生成SPCModelicacontroller类。
+
+![](/img/tutorial/image-20220111143500983.png)
+
+图 73 服务节点
+
+在Datalinks中添加服务节点后，对应json文件中第五层的内容，在适配器代码模板框架中对应生成Controller包下Service包中的ModelContentController类。在此层级中，每定义一个service，都表示一个服务，一个服务对应操纵着一种资源。
+
+![](/img/tutorial/image-20220111143845027.png)
+
+​	图 74 资源添加
+
+在Datalinks的资源面板中每添加的一个资源，在json中对应为一个resources对象，每多添加一个资源，resources将多增加一个对象，该对象对应所生成的适配器模板中resources包下的一个实体类，如此处的ModelContent实体类。
+
+![](/img/tutorial/image-20220111143907550.png)
+
+图 75 资源属性
+​		在Datalinks中为每一个资源配置的属性，对应json文件中的properties数组内容，在生成的适配器模板代码中为resources包下的相应实体类的注解。
+
+- Datalinks软件是一款根据OSLC数据定义规范，生成在MBSE背景下由于在产品全生命周期内不同阶段的数据存在异构、跨学科、不同规范等数据特点造成的数据在产品全生命周期内的流通难，集成难，互操作难等问题，生成针对不同工具、数据特点的适配器模板的一款适配器模板生成软件。
+
+  ​		通过Datalinks的使用，可以使系统工程人员与软件开发人员的开发工作进行不同的分工。这一分离的功能，让系统工程人员可以更多地关注于自己的系统工程业务需求，而将软件开发任务交付给专业的软件开发人员，从而大大的提升了产品研发的整体工作效率，也可以有效的生成统一的、标准化的数据服务连接，通过该连接从而实现数据的互操作。
+
+  ​																										表 11 系统工程人员需构建内容清单
+
+|               内容               |                        说明                         |                       备注                       |
+| :------------------------------: | :-------------------------------------------------: | :----------------------------------------------: |
+|             项目设置             | 为适配器java项目设置相应的包结构，端口号，uri等内容 |                                                  |
+| 根目录节点（服务提供方目录节点） |            适配器所提供服务的根节点目录             |                                                  |
+|          Sub根目录节点           |            适配器所提供服务的根节点目录             |             根据业务需要选择是否添加             |
+|    服务节点（服务提供方节点）    |             适配器所提供服务的节点目录              |                                                  |
+|           Sub服务节点            |             适配器所提供服务的节点目录              |             根据业务需要选择是否添加             |
+|               服务               |                 适配器所提供的服务                  |              根据业务需要可添加多个              |
+|               资源               |              适配器所要解析的资源服务               | 根据业务需要可添加多个（属于服务层级的资源定义） |
+|             资源实体             |              适配器所要解析的资源实体               |    根据业务需要可添加多个（属于服务实体定义）    |
+
+​	表 12 开发人员需构建内容清单
+
+|        内容        |                             说明                             |                             备注                             |
+| :----------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|      Json文件      | Datalinks表单配置过程，就是Json文件生成的过程，其定义了适配器项目的代码框架结构。 | 非适配器软件二次开发必修改内容，根据业务需要进行修改，一般只进行目录层级的增加或删减等内容。 |
+| JerseyConfig类注册 | 所有访问适配器的路径都将被拦截，只有在该配置类中注册过的控制类才可被访问并解析响应。 |                  一般情况下只需注册控制类。                  |
+|       控制类       |                    根据业务需求选择编写。                    |                                                              |
+
+- 对于Datalinks表单填写与OSLC标准规范
+
+在Datalinks中项目设置节点为必填项且唯一，因为其对应一个java项目的名称与框架。
+在Datalinks中根目录节点为必填项，在Datalinks软件中会自动生成，因为其对应该适配器项目的访问窗口。
+在Datalinks中根目录节点下，可以添加sub目录节点，也可添加服务节点，此处节点的添加需要根据实际业务需要进行设置。
+
+![](/img/tutorial/image-20220111144132343.png)
+
+图 76 节点添加（a）
+
+在Datalinks中服务提供方目录节点下，只可添加服务提供方节点。
+
+![](/img/tutorial/image-20220111144318951.png)
+
+​	图 77 节点添加（b）
+
+在服务层级节点下，只可添加资源节点。
+
+![](/img/tutorial/image-20220111144340086.png)
+
+图 78 节点添加（c）
+
+由此可以表明，Datalinks软件允许在根目录节点下添加服务提供方目录节点，也可以添加服务提供方节点，但下层级的目录结构必须按照OSLC标准规范目录层级结构，这样的设计原由是为了可以根据系统工程业务进行灵活的定制服务。更好的进行适配器的设计与开发。
