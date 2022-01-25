@@ -9,7 +9,7 @@ const config = {
   title: 'Datalinks',
   tagline: 'Datalinks are cool',
   url: 'https://facebook.github.io/build/',
-  baseUrl: '/build/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
